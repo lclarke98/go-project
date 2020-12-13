@@ -1,4 +1,4 @@
-package go_project
+package main
 
 import (
 	"encoding/json"
