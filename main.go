@@ -19,7 +19,7 @@ type DbResponse struct {
 }
 
 
-func login(req http.ResponseWriter, res *http.Request)  {
+func register(req http.ResponseWriter, res *http.Request)  {
 	var p UserDetails
 	err := json.NewDecoder(res.Body).Decode(&p)
 	if err != nil {
@@ -29,7 +29,7 @@ func login(req http.ResponseWriter, res *http.Request)  {
 
 func main() {
 	// add user route
-	http.HandleFunc("/api/login", login)
+	http.HandleFunc("/api/register", register)
 
 	fs := http.FileServer(http.Dir("./frontend/dist"))
 	http.Handle("/", fs)

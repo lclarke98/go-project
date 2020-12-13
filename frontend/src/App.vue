@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 py-5">
+        <h1>Login</h1>
+
+        <form v-on:submit.prevent="makeWebsiteThumbnail">
+          <div class="form-group">
+            <input v-model="username" type="text" id="website-input" placeholder="Enter a username" class="form-control">
+            <input v-model="password" type="text" id="website-input" placeholder="Enter a password" class="form-control">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Generate!</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from 'axios';
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+
+  data() { return {
+    username: '',
+    password: '',
+    thumbnailUrl: '<img :src="thumbnailUrl"/>',
+  } },
+
+  methods: {
+    makeWebsiteThumbnail() {
+  // Call the Go API, in this case we only need the URL parameter.
+  axios.post("http://localhost:3000/api/register", {
+    username: this.username,
+    password: this.password,
+  })
+  .then((response) => {
+    this.thumbnailUrl = response.data.screenshot;
+  })
+  .catch((error) => {
+    window.alert(`The API returned an error: ${error}`);
+  })
+}
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
