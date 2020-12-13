@@ -32,6 +32,9 @@ func dbConn() (db *sql.DB) {
 }
 
 func AddUser(username, password string) {
+	log.Println("user 24")
+	log.Println(username)
+	log.Println(password)
 	db := dbConn()
 	insForm, err := db.Prepare("INSERT INTO user(username, password) VALUES(?,?)")
 	if err != nil {

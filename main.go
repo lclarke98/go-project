@@ -21,10 +21,14 @@ type DbResponse struct {
 
 func register(req http.ResponseWriter, res *http.Request)  {
 	var p UserDetails
-	err := json.NewDecoder(res.Body).Decode(&p)
-	if err != nil {
-		user.AddUser(string("Test"), string("pw123"))
-	}
+	log.Println("here 24")
+	_ = json.NewDecoder(res.Body).Decode(&p)
+	log.Println(p.Username)
+	log.Println(p.Password)
+
+	log.Println("here 26")
+	user.AddUser(string(p.Username), string(p.Password))
+
 }
 
 func main() {
