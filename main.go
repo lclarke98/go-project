@@ -1,12 +1,11 @@
 package go_project
 
 import (
-	"database/sql"
 	"encoding/json"
+	"fmt"
+	"github.com/lclarke98/go-project/user"
 	"log"
 	"net/http"
-	user "user"
-	"github.com/lclarke98/go-project/user"
 )
 
 type UserDetails struct {
@@ -19,52 +18,12 @@ type DbResponse struct {
 	Password string
 }
 
-// db connection
-func dbConn() (db *sql.DB) {
-	dbDriver := "mysql"
-	dbUser := "root"
-	dbPass := "root"
-	dbName := "test"
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
-	if err != nil {
-		panic(err.Error())
-	}
-	return db
-}
 
-// insert user details
-func insert(w http.ResponseWriter, r *http.Request) {
-	db := dbConn()
+func login(req http.ResponseWriter, res *http.Request)  {
 	var p UserDetails
-	err := json.NewDecoder(r.Body).Decode(&p)
+	err := json.NewDecoder(res.Body).Decode(&p)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	if r.Method == "POST" {
-		insForm, err := db.Prepare("INSERT INTO user(username, password) VALUES(?,?)")
-		if err != nil {
-			panic(err.Error())
-		}
-		insForm.Exec(p.Username, p.Password)
-	}
-	defer db.Close()
-}
-
-func login(w http.ResponseWriter, r *http.Request) {
-	var p UserDetails
-	var d DbResponse
-	err := json.NewDecoder(r.Body).Decode(&p)
-	db := dbConn()
-
-	err = db.QueryRow("SELECT username,password FROM user WHERE username = ? AND password = ?", p.Username, p.Password).Scan(&d.Username, &d.Password)
-	if err != nil {
-		//panic(err.Error()) // proper error handling instead of panic in your app
-		log.Println("User not found")
-	} else {
-		log.Println(d.Username)
-		log.Println(d.Password)
+		user.AddUser(string("Test"), string("pw123"))
 	}
 }
 

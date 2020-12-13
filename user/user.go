@@ -3,6 +3,8 @@ package user
 import (
 	"database/sql"
 	"encoding/json"
+	_ "github.com/go-sql-driver/mysql"
+	"log"
 	"net/http"
 )
 
@@ -29,21 +31,28 @@ func dbConn() (db *sql.DB) {
 	return db
 }
 
-func addUser(username, password string) {
+func AddUser(username, password string) {
 	db := dbConn()
-	var p UserDetails
-	err := json.NewDecoder(r.Body).Decode(&p)
+	insForm, err := db.Prepare("INSERT INTO user(username, password) VALUES(?,?)")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	if r.Method == "POST" {
-		insForm, err := db.Prepare("INSERT INTO user(username, password) VALUES(?,?)")
-		if err != nil {
 			panic(err.Error())
 		}
-		insForm.Exec(p.Username, p.Password)
-	}
+		_, _ = insForm.Exec(username, password)
 	defer db.Close()
+}
+
+func login(w http.ResponseWriter, r *http.Request) {
+	var p UserDetails
+	var d DbResponse
+	err := json.NewDecoder(r.Body).Decode(&p)
+	db := dbConn()
+
+	err = db.QueryRow("SELECT username,password FROM user WHERE username = ? AND password = ?", p.Username, p.Password).Scan(&d.Username, &d.Password)
+	if err != nil {
+		//panic(err.Error()) // proper error handling instead of panic in your app
+		log.Println("User not found")
+	} else {
+		log.Println(d.Username)
+		log.Println(d.Password)
+	}
 }

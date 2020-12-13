@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a5af8b58-be81-4ab6-87eb-ce3d9a20cba1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/user.go" afterDir="false" />
     </list>
@@ -32,6 +33,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mariadb" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -47,5 +49,15 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1954" y="567" key="#SQL_Dialects" timestamp="1607858313360">
+      <screen x="0" y="0" width="3440" height="1440" />
+    </state>
+    <state x="1954" y="567" key="#SQL_Dialects/-1440.427.1440.900/0.0.3440.1440@0.0.3440.1440" timestamp="1607858313360" />
+    <state x="2183" y="396" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607894591782">
+      <screen x="0" y="0" width="3440" height="1440" />
+    </state>
+    <state x="2183" y="396" key="#com.intellij.execution.impl.EditConfigurationsDialog/3440.0.1440.900/0.0.3440.1440/-1080.0.1080.1920@0.0.3440.1440" timestamp="1607894591782" />
   </component>
 </project>
